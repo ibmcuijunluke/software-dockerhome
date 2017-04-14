@@ -1,0 +1,23 @@
+安装 DKMS、更新内核
+# install from EPEL
+# yum  -y install gcc make glibc kernel-headers kernel-devel dkms
+Installed:
+  dkms.noarch 0:2.3-1.20161202gitde1dca9.el7
+# yum -y update kernel
+# reboot
+安装VirtualBox
+浏览器打开：
+http://www.oracle.com/technetwork/server-storage/virtualbox/downloads/index.html
+或：
+https://mirrors.tuna.tsinghua.edu.cn/virtualbox/
+curl命令： -O 下载文件到本地    -C  断点续传
+# rpm -ivh https://mirrors.tuna.tsinghua.edu.cn/virtualbox/5.1.12/VirtualBox-5.1-5.1.12_112440_el7-1.x86_64.rpm
+
+安装远程桌面扩展 VRDP (Virtual Remote Desktop Protocol)
+# VBoxManage  -v
+5.1.8r111374
+浏览器打开：  http://download.virtualbox.org/virtualbox/
+找到相应版本（如5.1.12）的目录，下载选中的文件
+# curl -O https://mirrors.tuna.tsinghua.edu.cn/virtualbox/5.1.12/Oracle_VM_VirtualBox_Extension_Pack-5.1.12-112440.vbox-extpack
+# VBoxManage extpack install  Oracle_VM_VirtualBox_Extension_Pack-5.1.12-112440.vbox-extpack
+# VBoxManage list extpacks

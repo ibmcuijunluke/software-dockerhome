@@ -1,0 +1,99 @@
+阿里云Linux安装软件镜像源
+阿里云是最近新出的一个镜像源。得益与阿里云的高速发展，这么大的需求，肯定会推出自己的镜像源。
+阿里云Linux安装镜像源地址：http://mirrors.aliyun.com/
+CentOS系统更换软件安装源
+第一步：备份你的原镜像文件，以免出错后可以恢复。
+mv /etc/yum.repos.d/CentOS-Base.repo /etc/yum.repos.d/CentOS-Base.repo.backup
+第二步：下载新的CentOS-Base.repo 到/etc/yum.repos.d/
+CentOS 5
+wget -O /etc/yum.repos.d/CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos-5.repo
+CentOS 6
+wget -O /etc/yum.repos.d/CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos-6.repo
+第三步：运行yum makecache生成缓存
+yum clean all
+yum makecache
+
+
+网易（163）yum源是国内最好的yum源之一 ，无论是速度还是软件版本，都非常的不错，将yum源设置为163yum，可以提升软件包安装和更新的速度，同时避免一些常见软件版本无法找到。具体设置方法如下：
+1，进入yum源配置目录
+cd /etc/yum.repos.d
+2，备份系统自带的yum源
+mv CentOS-Base.repo CentOS-Base.repo.bk
+下载163网易的yum源：
+wget http://mirrors.163.com/.help/CentOS6-Base-163.repo
+3，更新玩yum源后，执行下边命令更新yum配置，使操作立即生效
+yum makecache
+4，除了网易之外，国内还有其他不错的yum源，比如中科大和搜狐的，大家可以根据自己需求下载
+中科大的yum源：
+wget http://centos.ustc.edu.cn/CentOS-Base.repo
+sohu的yum源
+wget http://mirrors.sohu.com/help/CentOS-Base-sohu.repo
+理论上讲，这些yum源redhat系统以及fedora也是可以用 的，但是没有经过测试，需要的站长可以自己测试一下。
+
+#################################################################################################
+
+更换CentOS-Base源（阿里云镜像）
+# cp /etc/yum.repos.d/CentOS-Base.repo /etc/yum.repos.d/CentOS-Base.repo.bak
+# wget -O /etc/yum.repos.d/CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos-7.repo
+# rpm  -import  http://mirrors.aliyun.com/centos/RPM-GPG-KEY-CentOS-7
+
+安装EPEL源（阿里云镜像）
+# rpm -Uvh http://mirrors.aliyun.com/epel/epel-release-latest-7.noarch.rpm
+# rpm  -import http://mirrors.aliyun.com/epel/RPM-GPG-KEY-EPEL-7
+# rpm  -import http://mirrors.aliyun.com/epel/RPM-GPG-KEY-EPEL-7Server
+安装 yum-axelget 插件
+# yum install yum-axelget
+安装该插件的同时会安装另一个软件 axel。axel 是一个并行下载工具，在下载 http、ftp 等简单协议的文件时非常好用。
+
+安装elrepo源（清华镜像）
+# rpm -Uvh https://mirrors.tuna.tsinghua.edu.cn/elrepo/extras/el7/x86_64/RPMS/elrepo-release-7.0-2.el7.elrepo.noarch.rpm
+
+安装Repoforge源（清华镜像）
+浏览器打开：
+https://mirrors.tuna.tsinghua.edu.cn/help/repoforge/
+手动添加源
+cat > /etc/yum.repos.d/rpmforge.repo << EOF
+[rpmforge]
+name = RHEL $releasever - RPMforge.net - dag
+baseurl = https://mirrors.tuna.tsinghua.edu.cn/repoforge/redhat/el7/en/$basearch/rpmforge
+mirrorlist = http://mirrorlist.repoforge.org/el7/mirrors-rpmforge
+enabled = 1
+protect = 0
+gpgkey = file:///etc/pki/rpm-gpg/RPM-GPG-KEY-rpmforge-dag
+gpgcheck = 1
+[rpmforge-extras]
+name = RHEL $releasever - RPMforge.net - extras
+baseurl = https://mirrors.tuna.tsinghua.edu.cn/repoforge/redhat/el7/en/$basearch/extras
+mirrorlist = http://mirrorlist.repoforge.org/el7/mirrors-rpmforge-extras
+enabled = 0
+protect = 0
+gpgkey = file:///etc/pki/rpm-gpg/RPM-GPG-KEY-rpmforge-dag
+gpgcheck = 1
+[rpmforge-testing]
+name = RHEL $releasever - RPMforge.net - testing
+baseurl = https://mirrors.tuna.tsinghua.edu.cn/repoforge/redhat/el7/en/$basearch/testing
+mirrorlist = http://mirrorlist.repoforge.org/el7/mirrors-rpmforge-testing
+enabled = 0
+protect = 0
+gpgkey = file:///etc/pki/rpm-gpg/RPM-GPG-KEY-rpmforge-dag
+gpgcheck = 1
+EOF
+
+# rpm  -import  https://mirrors.tuna.tsinghua.edu.cn/repoforge/RPM-GPG-KEY.dag.txt
+
+=======================================================
+安装Nux Dextop源
+更改centos桌面主题
+此源包含Centos桌面和多媒体应用依赖EPEL源，但Nux Dextop源与Repoforge源有冲突，此源默认设置为关闭状态。
+# rpm -Uvh http://li.nux.ro/download/nux/dextop/el7/x86_64/nux-dextop-release-0-5.el7.nux.noarch.rpm
+# vi  /etc/yum.repos.d/nux-dextop.repo
+enabled=0
+
+安装应用  例：
+# yum --enablerepo=nux-dextop install  <package-name>
+======================================================= 安装IUS源（清华镜像）
+# rpm -import https://mirrors.tuna.tsinghua.edu.cn/ius/IUS-COMMUNITY-GPG-KEY
+# rpm -Uvh https://mirrors.tuna.tsinghua.edu.cn/ius/stable/CentOS/7/x86_64/yum-plugin-replace-0.2.7-1.ius.centos7.noarch.rpm
+
+更新缓存
+# yum makecache
