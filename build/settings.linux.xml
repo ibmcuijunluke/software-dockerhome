@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<settings>  
+     <localRepository>/root/.m2/repository</localRepository>
+     <proxies>  
+       <proxy>  
+         <id>normal</id>  
+         <active>true</active>  
+         <protocol>http</protocol>  
+         <username>deployment</username>  
+         <password>deploy</password>  
+         <host>127.0.0.1:8081/nexus</host>  
+         <port>80</port>  
+        <nonProxyHosts>127.0.0.1:8081/nexus</nonProxyHosts>  
+      </proxy>  
+    </proxies>  
+    
+    <mirrors>  
+      <mirror>  
+        <!–This is used to direct the public snapshots repo in the   
+            profile below over to a different nexus group –>  
+        <id>nexus-public-snapshots</id>  
+        <mirrorOf>public-snapshots</mirrorOf>  
+        <url>http://192.168.18.220:8081/nexus/content/groups/public-snapshots</url>  
+      </mirror>  
+      <mirror>  
+        <!–This sends everything else to /public –>  
+        <id>nexus</id>  
+        <mirrorOf>*</mirrorOf>  
+        <url>http://192.168.18.220:8081/nexus/content/groups/public</url>  
+      </mirror>  
+      <mirror>
+          <id>repo2</id>
+          <name>repo2</name>
+          <url>http://192.168.18.220:8081/nexus/content/repositories/central/</url>
+          <mirrorOf>central</mirrorOf>
+      </mirror>
+    </mirrors>  
+      
+    <profiles>  
+      <profile>  
+        <id>nexus</id>  
+        <repositories>  
+          <repository>  
+            <id>central</id>  
+            <url>http://central</url>  
+            <releases><enabled>true</enabled></releases>  
+            <snapshots><enabled>true</enabled></snapshots>  
+          </repository>  
+        </repositories>  
+       <pluginRepositories>  
+          <pluginRepository>  
+            <id>central</id>  
+            <url>http://central</url>  
+            <releases><enabled>true</enabled></releases>  
+            <snapshots><enabled>true</enabled></snapshots>  
+          </pluginRepository>  
+        </pluginRepositories>  
+      </profile>  
+      <profile>  
+        <!–this profile will allow snapshots to be searched when activated–>  
+        <id>public-snapshots</id>  
+        <repositories>  
+          <repository>  
+            <id>public-snapshots</id>  
+            <url>http://public-snapshots</url>  
+            <releases><enabled>false</enabled></releases>  
+            <snapshots><enabled>true</enabled></snapshots>  
+          </repository>  
+        </repositories>  
+       <pluginRepositories>  
+          <pluginRepository>  
+            <id>public-snapshots</id>  
+            <url>http://public-snapshots</url>  
+            <releases><enabled>false</enabled></releases>  
+            <snapshots><enabled>true</enabled></snapshots>  
+          </pluginRepository>  
+        </pluginRepositories>  
+      </profile>  
+    </profiles>  
+    <servers>
+    	<server>
+			<id>releases</id>
+			<username>admin</username>
+			<password>admin123</password>
+		</server>
+		<server>
+			<id>snapshots</id>
+			<username>admin</username>
+			<password>admin123</password>
+		</server>
+    </servers>
+    <activeProfiles>  
+      <activeProfile>nexus</activeProfile>  
+    </activeProfiles>  
+</settings>
+
+
