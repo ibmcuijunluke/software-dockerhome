@@ -76,7 +76,6 @@ ps -elf|grep node
 cd $WORKSPACE
 rm -rf *.json.gz
 #delete all .json.gz files on cw-web
-ls
 
 pm2 list
 #pm2 logs
