@@ -10,6 +10,8 @@ cd /opt
 #cnpm i &&
 #npm start
 ps -elf|grep node
+ps -elf|grep java
+ps -elf|grep golang
 
 
 
