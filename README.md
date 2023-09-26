@@ -5,3 +5,5 @@ software-devopsengineer softwareluke @2022
 automation testing
 devops cicd automation process
 @2022.10.16
+
+@solbridge 2023.09
